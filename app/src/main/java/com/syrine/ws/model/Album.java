@@ -9,14 +9,14 @@ public class Album {
     private String cover_big;
     private Artist artist;
 
-    public Album(int _id, String _title, String _cover, String _cover_small, String _cover_medium, String _cover_big, Artist _artist) {
-        id = _id;
-        title = _title;
-        cover = _cover;
-        cover_small = _cover_small;
-        cover_medium = _cover_medium;
-        cover_big = _cover_big;
-        artist = _artist;
+    public Album(int id, String title, String cover, String cover_small, String cover_medium, String cover_big, Artist artist) {
+        this.id = id;
+        this.title = title;
+        this.cover = cover;
+        this.cover_small = cover_small;
+        this.cover_medium = cover_medium;
+        this.cover_big = cover_big;
+        this.artist = artist;
     }
 
     public int getId() {

@@ -9,8 +9,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DownloadUtils {
-    private static final String TAG = DownloadUtils.class.getSimpleName();
+public class DownloadHelper {
+    private static final String TAG = DownloadHelper.class.getSimpleName();
 
     public static InputStream downloadData(String requestUrl) {
         InputStream inputStream = null;

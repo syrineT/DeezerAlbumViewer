@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 
 import com.syrine.ws.ResponseParser;
 import com.syrine.ws.response.AlbumsResponse;
-import com.syrine.ws.utils.DownloadUtils;
+import com.syrine.ws.utils.DownloadHelper;
 
 import java.io.InputStream;
 
 public class HomeFragment extends Fragment {
-    private static final int COLOUMN_COUNT = 4;
+    private static final int COLOUMN_COUNT = 2;
     public static String API_URL = "http://api.deezer.com/2.0/user/2529/albums";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -41,13 +41,12 @@ public class HomeFragment extends Fragment {
         new AlbumsAsyncTask().execute();
     }
 
-    private class AlbumsAsyncTask extends AsyncTask<Void, Void, AlbumsResponse> {
+    class AlbumsAsyncTask extends AsyncTask<Void, Void, AlbumsResponse> {
+
         @Override
         protected AlbumsResponse doInBackground(Void... params) {
-            InputStream inputStream = DownloadUtils.downloadData(API_URL);
+            InputStream inputStream = DownloadHelper.downloadData(API_URL);
             return ResponseParser.readAlbumsResponse(inputStream);
-
-
         }
 
         @Override
@@ -55,8 +54,6 @@ public class HomeFragment extends Fragment {
             super.onPostExecute(albumsResponse);
             mAdapter = new AlbumsAdapter(albumsResponse.getData());
             mRecyclerView.setAdapter(mAdapter);
-
-
         }
     }
 }

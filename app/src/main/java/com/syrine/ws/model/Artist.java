@@ -8,13 +8,13 @@ public class Artist {
     public String picture_medium;
     public String picture_big;
 
-    public Artist(int _id, String _name, String _picture, String _picture_small, String _picture_medium, String _picture_big) {
-        id = _id;
-        name = _name;
-        picture = _picture;
-        picture_small = _picture_small;
-        picture_medium = _picture_medium;
-        picture_big = _picture_big;
+    public Artist(int id, String name, String picture, String picture_small, String picture_medium, String picture_big) {
+        this.id = id;
+        this.name = name;
+        this.picture = picture;
+        this.picture_small = picture_small;
+        this.picture_medium = picture_medium;
+        this.picture_big = picture_big;
     }
 
     public int getId() {
