@@ -65,7 +65,7 @@ public class FileCache implements Cache {
         filesDir.delete();
     }
 
-    //TODO method helper
+    //TODO move method helper to appropriate class
     private String getFileName(String url) {
         List<String> pathSegments = Uri.parse(url).getPathSegments();
         return pathSegments.get(pathSegments.size() - 2);

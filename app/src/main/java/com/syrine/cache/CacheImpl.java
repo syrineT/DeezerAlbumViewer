@@ -9,17 +9,31 @@ public class CacheImpl implements Cache {
     private final FileCache mFileCache;
     private final TempCache mTempCache;
 
+    /**
+     * Initialise cache
+     * @param context of the application
+     */
     public CacheImpl(Context context) {
         mFileCache = new FileCache(context);
         mTempCache = new TempCache();
     }
 
+    /**
+     * Add bitmap to cache
+     * @param bitmap
+     * @param url
+     */
     @Override
     public void addBitmap(Bitmap bitmap, String url) {
         mTempCache.addBitmap(bitmap, url);
         mFileCache.addBitmap(bitmap, url);
     }
 
+    /**
+     * Get the bitmap from the cache
+     * @param url of the image
+     * @return bitmap if it exists else return null
+     */
     @Override
     public Bitmap getBitmap(String url) {
         Bitmap bitmap = mTempCache.getBitmap(url);
@@ -34,12 +48,19 @@ public class CacheImpl implements Cache {
         return null;
     }
 
+    /**
+     * Remove bitmap from cache
+     * @param url of the image
+     */
     @Override
     public void removeBitmap(String url) {
         mTempCache.removeBitmap(url);
         mFileCache.removeBitmap(url);
     }
 
+    /**
+     * Removes all bitmaps from all caches
+     */
     @Override
     public void clear() {
         mTempCache.clear();

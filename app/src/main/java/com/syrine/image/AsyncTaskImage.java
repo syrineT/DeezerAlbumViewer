@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.syrine.cache.Cache;
 import com.syrine.executor.PriorityAsyncTask;
-import com.syrine.manager.ImageManager;
 import com.syrine.ws.utils.AnimationHelper;
 import com.syrine.ws.utils.DownloadHelper;
 import com.syrine.ws.utils.Downloader;

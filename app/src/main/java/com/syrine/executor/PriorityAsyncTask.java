@@ -14,6 +14,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Alternative implementation of the AsyncTask
+ * Motivations:
+ * FutureTasks are final in the original class , we need to create our own FutureTask class to set priority of downloads.
+ * @param <Params> set by the user to perform download
+ * @param <Result> the result expected by the user
+ */
 abstract public class PriorityAsyncTask<Params, Result> {
     private static final String TAG = PriorityAsyncTask.class.getSimpleName();
 
@@ -43,6 +50,11 @@ abstract public class PriorityAsyncTask<Params, Result> {
             = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
             TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
 
+    /**
+     * Init the download with
+     * @param priority 0 is the lowest priority
+     * @param params params you will use in doInBackground
+     */
 
     public PriorityAsyncTask(int priority, Params... params) {
         ParamsRunnable<Params, Result> paramsRunnable = new ParamsRunnable<Params, Result>(params) {

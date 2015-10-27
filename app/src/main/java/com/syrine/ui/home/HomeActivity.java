@@ -1,4 +1,4 @@
-package com.syrine;
+package com.syrine.ui.home;
 
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -9,9 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import com.syrine.AlbumsApplication;
+import com.syrine.BuildConfig;
+import com.syrine.R;
 import com.syrine.cache.Cache;
-import com.syrine.manager.ImageManager;
+import com.syrine.image.ImageManager;
 import com.syrine.ws.ResponseParser;
 import com.syrine.ws.response.AlbumsResponse;
 import com.syrine.ws.utils.DownloadHelper;
@@ -20,11 +25,14 @@ import java.io.InputStream;
 
 public class HomeActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
+    private GridLayoutManager mLayoutManager;
+    private ProgressBar mProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mProgressbar = (ProgressBar) findViewById(R.id.progress);
 
         initToolbar();
         initRecyclerView();
@@ -41,17 +49,15 @@ public class HomeActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, getColumnCount());
-        mRecyclerView.setLayoutManager(layoutManager);
+        mLayoutManager = new GridLayoutManager(this, getColumnCount(getResources().getConfiguration()));
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        }
-
+        mLayoutManager.setSpanCount(getColumnCount(newConfig));
     }
 
     @Override
@@ -72,11 +78,30 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private int getColumnCount(){
-        return getResources().getInteger(R.integer.columns_count);
+
+    private int getColumnCount(Configuration config) {
+        if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return getPortraitColumnCount();
+        }
+        return getLandscapeColumnCount();
+
+    }
+
+    private int getPortraitColumnCount() {
+        return getResources().getInteger(R.integer.portrait_columns_count);
+    }
+
+    private int getLandscapeColumnCount() {
+        return getResources().getInteger(R.integer.landscape_columns_count);
     }
 
     class AlbumsAsyncTask extends AsyncTask<Void, Void, AlbumsResponse> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressbar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected AlbumsResponse doInBackground(Void... params) {
@@ -87,6 +112,8 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(AlbumsResponse albumsResponse) {
             super.onPostExecute(albumsResponse);
+            mProgressbar.setVisibility(View.GONE);
+
             ImageManager imageManager = AlbumsApplication.get(HomeActivity.this).getImageManager();
             RecyclerView.Adapter adapter = new AlbumsAdapter(imageManager, albumsResponse.getData());
             mRecyclerView.setAdapter(adapter);

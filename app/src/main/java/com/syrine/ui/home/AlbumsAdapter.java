@@ -1,4 +1,4 @@
-package com.syrine;
+package com.syrine.ui.home;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.syrine.manager.ImageManager;
+import com.syrine.R;
+import com.syrine.image.ImageManager;
 import com.syrine.ws.model.Album;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.album_cover_layout, parent, false);
+                .inflate(R.layout.item_image_layout, parent, false);
         return new ViewHolder(view);
     }
 

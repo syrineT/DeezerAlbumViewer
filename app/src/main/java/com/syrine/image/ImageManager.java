@@ -1,4 +1,4 @@
-package com.syrine.manager;
+package com.syrine.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import com.syrine.R;
 import com.syrine.cache.Cache;
 import com.syrine.executor.PriorityAsyncTask;
-import com.syrine.image.AsyncDrawable;
-import com.syrine.image.AsyncTaskImage;
 import com.syrine.ws.utils.Downloader;
 
 public class ImageManager {

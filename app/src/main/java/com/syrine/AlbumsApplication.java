@@ -6,7 +6,7 @@ import android.content.Context;
 
 import com.syrine.cache.Cache;
 import com.syrine.cache.CacheImpl;
-import com.syrine.manager.ImageManager;
+import com.syrine.image.ImageManager;
 import com.syrine.ws.utils.Downloader;
 
 public class AlbumsApplication extends Application {
@@ -15,7 +15,7 @@ public class AlbumsApplication extends Application {
     private Downloader mDownloader;
 
 
-    protected static AlbumsApplication get(Context context) {
+    public static AlbumsApplication get(Context context) {
         if (context instanceof Activity) {
             return (AlbumsApplication) ((Activity) context).getApplication();
         }

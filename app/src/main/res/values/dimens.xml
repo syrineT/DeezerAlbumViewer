@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <integer name="columns_count">2</integer>
+    <integer name="portrait_columns_count">2</integer>
+    <integer name="landscape_columns_count">3</integer>
 
 </resources>
