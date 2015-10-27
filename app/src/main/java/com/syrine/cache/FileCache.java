@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,7 +16,8 @@ import java.util.List;
 public class FileCache implements Cache {
 
     private static final String TAG = FileCache.class.getSimpleName();
-    private Context mContext;
+    private static final String COVERS_DIR = "coversDir";
+    private final Context mContext;
 
     public FileCache(Context mContext) {
         this.mContext = mContext;
@@ -24,7 +25,7 @@ public class FileCache implements Cache {
 
     @Override
     public void addBitmap(Bitmap bitmap, String url) {
-        File directory = mContext.getDir("coversDir", Context.MODE_PRIVATE);
+        File directory = mContext.getDir(COVERS_DIR, Context.MODE_PRIVATE);
         File filePath = new File(directory, getFileName(url));
         FileOutputStream fileOutputStream;
         try {
@@ -33,20 +34,21 @@ public class FileCache implements Cache {
             fileOutputStream.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
     }
 
     @Override
     public Bitmap getBitmap(String url) {
-        File file = new File(mContext.getDir("coversDir", Context.MODE_PRIVATE), getFileName(url));
-        Bitmap bitmap = null;
+        File file = new File(mContext.getDir(COVERS_DIR, Context.MODE_PRIVATE), getFileName(url));
         try {
-            bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            if (file.exists())
+                return BitmapFactory.decodeStream(new FileInputStream(file));
+            else return null;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
-        return bitmap;
+        return null;
     }
 
     @Override
@@ -56,17 +58,17 @@ public class FileCache implements Cache {
 
     @Override
     public void clear() {
-        for (File file : mContext.getFilesDir().listFiles()) {
-            mContext.deleteFile(file.getName());
+        File filesDir = mContext.getDir(COVERS_DIR, Context.MODE_PRIVATE);
+        for (File file : filesDir.listFiles()) {
+            file.delete();
         }
+        filesDir.delete();
     }
 
     //TODO method helper
-
     private String getFileName(String url) {
         List<String> pathSegments = Uri.parse(url).getPathSegments();
-        String fileName = pathSegments.get(pathSegments.size() - 2);
-        return fileName;
+        return pathSegments.get(pathSegments.size() - 2);
 
     }
 }

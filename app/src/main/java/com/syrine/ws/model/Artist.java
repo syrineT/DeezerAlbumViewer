@@ -1,12 +1,12 @@
 package com.syrine.ws.model;
 
 public class Artist {
-    public int id;
-    public String name;
-    public String picture;
-    public String picture_small;
-    public String picture_medium;
-    public String picture_big;
+    private int id;
+    private String name;
+    private String picture;
+    private String picture_small;
+    private String picture_medium;
+    private String picture_big;
 
     public Artist(int id, String name, String picture, String picture_small, String picture_medium, String picture_big) {
         this.id = id;

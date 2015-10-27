@@ -7,12 +7,12 @@ import java.util.List;
 
 public class AlbumsResponse {
 
-    public List<Album> data;
-    public String next;
+    private List<Album> data;
+    private String next;
 
-    public AlbumsResponse(List<Album> _data, String _next) {
-        data = _data;
-        next = _next;
+    public AlbumsResponse(List<Album> data, String next) {
+        this.data = data;
+        this.next = next;
     }
 
     public List<Album> getData() {

@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 public class CacheImpl implements Cache {
     private static final String TAG = CacheImpl.class.getSimpleName();
 
-    private FileCache mFileCache;
-    private TempCache mTempCache;
+    private final FileCache mFileCache;
+    private final TempCache mTempCache;
 
     public CacheImpl(Context context) {
         mFileCache = new FileCache(context);
@@ -22,10 +22,12 @@ public class CacheImpl implements Cache {
 
     @Override
     public Bitmap getBitmap(String url) {
-        if (mTempCache.getBitmap(url) != null) {
-            return mTempCache.getBitmap(url);
-        } else if (mFileCache.getBitmap(url) != null) {
-            Bitmap bitmap = mFileCache.getBitmap(url);
+        Bitmap bitmap = mTempCache.getBitmap(url);
+        if (bitmap != null) {
+            return bitmap;
+        }
+        bitmap = mFileCache.getBitmap(url);
+        if (bitmap != null) {
             mTempCache.addBitmap(bitmap, url);
             return bitmap;
         }

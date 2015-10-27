@@ -1,6 +1,5 @@
 package com.syrine.cache;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 
 public interface Cache {

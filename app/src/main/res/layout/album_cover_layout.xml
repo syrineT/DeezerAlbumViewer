@@ -6,4 +6,4 @@
     android:layout_margin="5dp"
     android:adjustViewBounds="true"
     android:scaleType="centerCrop"
-    android:src="@drawable/placeholder_500x500" />
+    android:src="@drawable/placeholder_500x500"/>

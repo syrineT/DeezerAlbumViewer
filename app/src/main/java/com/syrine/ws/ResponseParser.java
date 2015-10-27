@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ResponseParser {
 
-    private static String TAG = ResponseParser.class.getSimpleName();
+    private static final String TAG = ResponseParser.class.getSimpleName();
 
     public static AlbumsResponse readAlbumsResponse(InputStream inputStream) {
         try {
@@ -25,12 +25,16 @@ public class ResponseParser {
             reader.beginObject();
             while (reader.hasNext()) {
                 String name = reader.nextName();
-                if (name.equals("data")) {
-                    albums = readAlbums(reader);
-                } else if (name.equals("next")) {
-                    next = reader.nextString();
-                } else {
-                    reader.skipValue();
+                switch (name) {
+                    case "data":
+                        albums = readAlbums(reader);
+                        break;
+                    case "next":
+                        next = reader.nextString();
+                        break;
+                    default:
+                        reader.skipValue();
+                        break;
                 }
             }
             return new AlbumsResponse(albums, next);
@@ -64,25 +68,31 @@ public class ResponseParser {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("id")) {
-                id = reader.nextInt();
-            } else if (name.equals("title")) {
-                title = reader.nextString();
-            } else if (name.equals("cover")) {
-                cover = reader.nextString();
-
-            } else if (name.equals("cover_small")) {
-                coverSmall = reader.nextString();
-
-            } else if (name.equals("cover_medium")) {
-                coverMedium = reader.nextString();
-
-            } else if (name.equals("cover_big")) {
-                coverBig = reader.nextString();
-            } else if (name.equals("artist")) {
-                artist = readArtist(reader);
-            } else {
-                reader.skipValue();
+            switch (name) {
+                case "id":
+                    id = reader.nextInt();
+                    break;
+                case "title":
+                    title = reader.nextString();
+                    break;
+                case "cover":
+                    cover = reader.nextString();
+                    break;
+                case "cover_small":
+                    coverSmall = reader.nextString();
+                    break;
+                case "cover_medium":
+                    coverMedium = reader.nextString();
+                    break;
+                case "cover_big":
+                    coverBig = reader.nextString();
+                    break;
+                case "artist":
+                    artist = readArtist(reader);
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
             }
         }
         reader.endObject();
@@ -99,23 +109,28 @@ public class ResponseParser {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("id")) {
-                id = reader.nextInt();
-            } else if (name.equals("name")) {
-                title = reader.nextString();
-            } else if (name.equals("picture")) {
-                picture = reader.nextString();
-
-            } else if (name.equals("picture_small")) {
-                pictureSmall = reader.nextString();
-
-            } else if (name.equals("picture_medium")) {
-                pictureMedium = reader.nextString();
-
-            } else if (name.equals("picture_big")) {
-                pictureBig = reader.nextString();
-            } else {
-                reader.skipValue();
+            switch (name) {
+                case "id":
+                    id = reader.nextInt();
+                    break;
+                case "name":
+                    title = reader.nextString();
+                    break;
+                case "picture":
+                    picture = reader.nextString();
+                    break;
+                case "picture_small":
+                    pictureSmall = reader.nextString();
+                    break;
+                case "picture_medium":
+                    pictureMedium = reader.nextString();
+                    break;
+                case "picture_big":
+                    pictureBig = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
             }
         }
         reader.endObject();
