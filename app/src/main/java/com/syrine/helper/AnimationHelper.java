@@ -1,4 +1,4 @@
-package com.syrine.ws.utils;
+package com.syrine.helper;
 
 import android.animation.ObjectAnimator;
 import android.widget.ImageView;

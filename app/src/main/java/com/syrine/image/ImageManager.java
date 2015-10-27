@@ -9,18 +9,15 @@ import android.widget.ImageView;
 import com.syrine.R;
 import com.syrine.cache.Cache;
 import com.syrine.executor.PriorityAsyncTask;
-import com.syrine.ws.utils.Downloader;
 
 public class ImageManager {
 
     private final Cache mCache;
-    private final Downloader mDownloader;
     private Bitmap mPlaceHolder;
 
 
-    public ImageManager(Context context, Cache cache, Downloader downloader) {
+    public ImageManager(Context context, Cache cache) {
         mCache = cache;
-        mDownloader = downloader;
         mPlaceHolder = BitmapFactory.decodeResource(context.getResources(), R.drawable.placeholder_500x500);
 
     }
@@ -28,7 +25,7 @@ public class ImageManager {
     public void displayImage(final String url, ImageView imageView, int priority) {
 
         if (cancelPotentialWork(url, imageView)) {
-            final AsyncTaskImage asyncTaskImage = new AsyncTaskImage(mCache, mDownloader, imageView, priority, url);
+            final AsyncTaskImage asyncTaskImage = new AsyncTaskImage(mCache, imageView, priority, url);
             final AsyncDrawable asyncDrawable = new AsyncDrawable(imageView.getResources(), mPlaceHolder, asyncTaskImage);
             imageView.setImageDrawable(asyncDrawable);
             asyncTaskImage.executeOnExecutor(PriorityAsyncTask.PRIORITY_SERIAL_EXECUTOR);

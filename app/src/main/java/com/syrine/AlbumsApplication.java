@@ -7,12 +7,10 @@ import android.content.Context;
 import com.syrine.cache.Cache;
 import com.syrine.cache.CacheImpl;
 import com.syrine.image.ImageManager;
-import com.syrine.ws.utils.Downloader;
 
 public class AlbumsApplication extends Application {
     private Cache mCache;
     private ImageManager mImageManager;
-    private Downloader mDownloader;
 
 
     public static AlbumsApplication get(Context context) {
@@ -26,8 +24,7 @@ public class AlbumsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mCache = new CacheImpl(this);
-        mDownloader = new Downloader();
-        mImageManager = new ImageManager(this, mCache, mDownloader);
+        mImageManager = new ImageManager(this, mCache);
     }
 
     public ImageManager getImageManager() {

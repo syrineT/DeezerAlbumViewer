@@ -17,9 +17,9 @@ import com.syrine.BuildConfig;
 import com.syrine.R;
 import com.syrine.cache.Cache;
 import com.syrine.image.ImageManager;
-import com.syrine.ws.ResponseParser;
+import com.syrine.ws.parser.AlbumsResponseParser;
 import com.syrine.ws.response.AlbumsResponse;
-import com.syrine.ws.utils.DownloadHelper;
+import com.syrine.helper.DownloadHelper;
 
 import java.io.InputStream;
 
@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected AlbumsResponse doInBackground(Void... params) {
             InputStream inputStream = DownloadHelper.downloadData(BuildConfig.API_URL);
-            return ResponseParser.readAlbumsResponse(inputStream);
+            return AlbumsResponseParser.readAlbumsResponse(inputStream);
         }
 
         @Override

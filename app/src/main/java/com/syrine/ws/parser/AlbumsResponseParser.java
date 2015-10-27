@@ -1,4 +1,4 @@
-package com.syrine.ws;
+package com.syrine.ws.parser;
 
 import android.util.JsonReader;
 import android.util.Log;
@@ -13,9 +13,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResponseParser {
+public class AlbumsResponseParser {
 
-    private static final String TAG = ResponseParser.class.getSimpleName();
+    private static final String TAG = AlbumsResponseParser.class.getSimpleName();
 
     public static AlbumsResponse readAlbumsResponse(InputStream inputStream) {
         try {

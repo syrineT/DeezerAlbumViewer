@@ -5,9 +5,8 @@ import android.widget.ImageView;
 
 import com.syrine.cache.Cache;
 import com.syrine.executor.PriorityAsyncTask;
-import com.syrine.ws.utils.AnimationHelper;
-import com.syrine.ws.utils.DownloadHelper;
-import com.syrine.ws.utils.Downloader;
+import com.syrine.helper.AnimationHelper;
+import com.syrine.helper.DownloadHelper;
 
 import java.lang.ref.WeakReference;
 
@@ -15,18 +14,14 @@ public class AsyncTaskImage extends PriorityAsyncTask<String, Bitmap> {
     private final WeakReference<ImageView> mImageViewReference;
     private Cache mCache;
     private String mUrl;
-    private final Downloader mDownloader;
-    private int mPriority;
 
     public String getUrl() {
         return mUrl;
     }
 
 
-    public AsyncTaskImage(Cache cache, Downloader downloader, ImageView imageView, int priority, String url) {
+    public AsyncTaskImage(Cache cache, ImageView imageView, int priority, String url) {
         super(priority, url);
-        mDownloader = downloader;
-        mPriority = priority;
         mCache = cache;
         mImageViewReference = new WeakReference<>(imageView);
     }

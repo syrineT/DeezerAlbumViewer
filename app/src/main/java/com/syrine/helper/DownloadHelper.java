@@ -1,4 +1,4 @@
-package com.syrine.ws.utils;
+package com.syrine.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
