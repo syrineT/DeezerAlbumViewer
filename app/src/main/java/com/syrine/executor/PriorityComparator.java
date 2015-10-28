@@ -2,7 +2,7 @@ package com.syrine.executor;
 
 import java.util.Comparator;
 
-public class PriorityComparator implements Comparator<Runnable> {
+class PriorityComparator implements Comparator<Runnable> {
     @Override
     public int compare(Runnable lhs, Runnable rhs) {
         if (lhs instanceof Priority && rhs instanceof Priority) {

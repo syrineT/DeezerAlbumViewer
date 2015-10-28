@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.support.annotation.NonNull;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -24,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 abstract public class PriorityAsyncTask<Params, Result> {
     private static final String TAG = PriorityAsyncTask.class.getSimpleName();
 
-    private PriorityFutureTask mFutureTask;
+    private final PriorityFutureTask mFutureTask;
     private boolean mCancelled;
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
@@ -35,7 +36,7 @@ abstract public class PriorityAsyncTask<Params, Result> {
     private static final ThreadFactory sThreadFactory = new ThreadFactory() {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
-        public Thread newThread(Runnable r) {
+        public Thread newThread(@NonNull Runnable r) {
             return new Thread(r, "PriorityAsyncTask #" + mCount.getAndIncrement());
         }
     };
@@ -55,8 +56,7 @@ abstract public class PriorityAsyncTask<Params, Result> {
      * @param priority 0 is the lowest priority
      * @param params params you will use in doInBackground
      */
-
-    public PriorityAsyncTask(int priority, Params... params) {
+    protected PriorityAsyncTask(int priority, Params... params) {
         ParamsRunnable<Params, Result> paramsRunnable = new ParamsRunnable<Params, Result>(params) {
 
             @Override
@@ -71,7 +71,7 @@ abstract public class PriorityAsyncTask<Params, Result> {
         mFutureTask = new PriorityFutureTask(paramsRunnable, priority);
     }
 
-    public void postResult(Result result) {
+    private void postResult(Result result) {
         Message message = getHandler().obtainMessage(0, new AsyncTaskResult<>(this, result));
         message.sendToTarget();
     }
@@ -117,7 +117,7 @@ abstract public class PriorityAsyncTask<Params, Result> {
         //TODO not implemented
     }
 
-    public boolean isCancelled() {
+    protected boolean isCancelled() {
         return mCancelled;
     }
 

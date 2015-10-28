@@ -13,7 +13,7 @@ import com.syrine.executor.PriorityAsyncTask;
 public class ImageManager {
 
     private final Cache mCache;
-    private Bitmap mPlaceHolder;
+    private final Bitmap mPlaceHolder;
 
 
     public ImageManager(Context context, Cache cache) {
@@ -28,7 +28,9 @@ public class ImageManager {
             final AsyncTaskImage asyncTaskImage = new AsyncTaskImage(mCache, imageView, priority, url);
             final AsyncDrawable asyncDrawable = new AsyncDrawable(imageView.getResources(), mPlaceHolder, asyncTaskImage);
             imageView.setImageDrawable(asyncDrawable);
-            asyncTaskImage.executeOnExecutor(PriorityAsyncTask.PRIORITY_SERIAL_EXECUTOR);
+            //asyncTaskImage.executeOnExecutor(PriorityAsyncTask.PRIORITY_SERIAL_EXECUTOR);
+            asyncTaskImage.executeOnExecutor(PriorityAsyncTask.THREAD_POOL_EXECUTOR);
+
         }
     }
 
@@ -43,7 +45,7 @@ public class ImageManager {
         return null;
     }
 
-    public boolean cancelPotentialWork(String newUrl, ImageView imageView) {
+    private boolean cancelPotentialWork(String newUrl, ImageView imageView) {
         final AsyncTaskImage currentTask = getCurrentTask(imageView);
 
         if (currentTask != null) {

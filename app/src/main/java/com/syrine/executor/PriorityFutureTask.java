@@ -1,7 +1,5 @@
 package com.syrine.executor;
 
-import android.os.Process;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 

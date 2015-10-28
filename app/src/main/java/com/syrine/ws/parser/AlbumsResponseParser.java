@@ -40,7 +40,7 @@ public class AlbumsResponseParser {
             return new AlbumsResponse(albums, next);
 
         } catch (IOException e) {
-            Log.e(TAG,"Exception has occured "+ e.getMessage());
+            Log.e(TAG,"Exception has occurred "+ e.getMessage());
         }
         return null;
     }

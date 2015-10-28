@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
 
 public class AsyncTaskImage extends PriorityAsyncTask<String, Bitmap> {
     private final WeakReference<ImageView> mImageViewReference;
-    private Cache mCache;
+    private final Cache mCache;
     private String mUrl;
 
     public String getUrl() {
@@ -38,7 +38,6 @@ public class AsyncTaskImage extends PriorityAsyncTask<String, Bitmap> {
         }
         if (bitmap == null) {
             bitmap = DownloadHelper.downloadImage(mUrl);
-            //bitmap = mDownloader.Download(mUrl, mPriority);
             mCache.addBitmap(bitmap, mUrl);
         }
         return bitmap;

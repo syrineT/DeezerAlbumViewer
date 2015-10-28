@@ -24,7 +24,7 @@ public class DownloadHelper {
 
             inputStream = connection.getInputStream();
         } catch (IOException e) {
-            Log.e(TAG, "Exception has occured " + e.getMessage());
+            Log.e(TAG, "Exception has occurred " + e.getMessage());
 
         }
         return inputStream;

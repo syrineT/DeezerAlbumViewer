@@ -8,16 +8,16 @@ import com.syrine.cache.Cache;
 import com.syrine.cache.CacheImpl;
 import com.syrine.image.ImageManager;
 
-public class AlbumsApplication extends Application {
+public class DeezCoverApplication extends Application {
     private Cache mCache;
     private ImageManager mImageManager;
 
 
-    public static AlbumsApplication get(Context context) {
+    public static DeezCoverApplication get(Context context) {
         if (context instanceof Activity) {
-            return (AlbumsApplication) ((Activity) context).getApplication();
+            return (DeezCoverApplication) ((Activity) context).getApplication();
         }
-        return (AlbumsApplication) context.getApplicationContext();
+        return (DeezCoverApplication) context.getApplicationContext();
     }
 
     @Override

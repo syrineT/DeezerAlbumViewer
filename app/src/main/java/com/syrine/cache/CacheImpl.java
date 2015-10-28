@@ -20,8 +20,8 @@ public class CacheImpl implements Cache {
 
     /**
      * Add bitmap to cache
-     * @param bitmap
-     * @param url
+     * @param bitmap to cache
+     * @param url of the bitmap
      */
     @Override
     public void addBitmap(Bitmap bitmap, String url) {

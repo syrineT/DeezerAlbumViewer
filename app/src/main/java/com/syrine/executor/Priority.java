@@ -1,6 +1,6 @@
 package com.syrine.executor;
 
-public interface Priority {
+interface Priority {
 
     int getPriority();
 }

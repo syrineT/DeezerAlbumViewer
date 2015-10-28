@@ -12,14 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.syrine.AlbumsApplication;
+import com.syrine.DeezCoverApplication;
 import com.syrine.BuildConfig;
 import com.syrine.R;
 import com.syrine.cache.Cache;
+import com.syrine.helper.DownloadHelper;
 import com.syrine.image.ImageManager;
 import com.syrine.ws.parser.AlbumsResponseParser;
 import com.syrine.ws.response.AlbumsResponse;
-import com.syrine.helper.DownloadHelper;
 
 import java.io.InputStream;
 
@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_clear) {
-            Cache cache = AlbumsApplication.get(this).getCache();
+            Cache cache = DeezCoverApplication.get(this).getCache();
             cache.clear();
             return true;
         }
@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
             super.onPostExecute(albumsResponse);
             mProgressbar.setVisibility(View.GONE);
 
-            ImageManager imageManager = AlbumsApplication.get(HomeActivity.this).getImageManager();
+            ImageManager imageManager = DeezCoverApplication.get(HomeActivity.this).getImageManager();
             RecyclerView.Adapter adapter = new AlbumsAdapter(imageManager, albumsResponse.getData());
             mRecyclerView.setAdapter(adapter);
         }
